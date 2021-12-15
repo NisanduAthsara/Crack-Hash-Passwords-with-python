@@ -1,45 +1,33 @@
 import hashlib
+import os
+import funcs
+import base64
 
-print('\n****************************')
-print('***** P@$$W0RD CR@CKER *****')
-print('****************************\n')
+funcs.banner()
 
-print('-------> Only Can Crack passwords which are hashed by md5 algorithms!\n')
+print('[*] Only Can Crack passwords which are hashed by md5 , base64 ,rot13 algorithms!\n')
 
-password = input('Enter Hashed Password : ')
-pwd_not_found = ""
+type_of_func = str(input("Enter Your Algorithm Type : "))
 
-path = input('Enter Your File Path : ')
+type_of_func1 = type_of_func.replace(" ","")
+type_of_func2 = type_of_func.lower()
 
-try:
-    file1 = open(path, 'r')
-except:
-    print('\nError..!')
-    print('Invalid File Path..!')  
-    print('You Entered path : '+path)
-    quit()  
+funcs.clear()
+funcs.banner()
 
-Lines = file1.readlines()
+if type_of_func2 == "md5":
+    funcs.md5Crak()
 
-for line in Lines:
-    txt = line.strip('\n')
+elif type_of_func2 == "base64":
+    funcs.base64_decode()
 
-    # enc_txt = txt.encode('utf-8')
-    hash_txt = hashlib.md5(txt.encode('utf-8'))
-    last_txt = hash_txt.hexdigest()
+elif type_of_func2 == "rot13":
+	funcs.rot13_decode()
 
-    if password == last_txt:
-        print('\n\nA password Found!')
-        print("The Password is : "+txt)
-        print('\n')
-        pwd_not_found = "No"
-        break 
-    else:
-        pwd_not_found = "Yes"   
+else:
+	print("Invalid Encrytion Method..!")
 
-file1.close()
+print("Thanks For Use CR@CK IT")   
 
-if pwd_not_found == "Yes":
-    print("\nPassword Not Found!\n")
-
-print("*************")    
+input('[!]Exit : ')
+exit()
